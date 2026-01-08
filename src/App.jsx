@@ -1,12 +1,11 @@
 import { useState } from 'react'
+import Body from './components/Body.jsx'
 
 function App() {
-  
-
   return (
-   <h1 className="text-3xl font-bold text-red-600 underline">
-      Hello MovieGpt!
-    </h1>
+   <div>
+    <Body/>
+   </div>
   )
 }
 
