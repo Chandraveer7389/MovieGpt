@@ -1,0 +1,12 @@
+{
+  "name": "moviegpt",
+  "version": "1.0.0",
+  "description": "\"Movie App\"",
+  "license": "ISC",
+  "author": "Chandraveer",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  }
+}
