@@ -1,10 +1,18 @@
-import Login from "./loginPageFeatures/Login.jsx"
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./loginPageFeatures/Login.jsx";
+
 const Body = () => {
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Login />,
+    },
+  ]);
   return (
     <div>
-      <Login />
+      <RouterProvider router={appRouter} />
     </div>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;
