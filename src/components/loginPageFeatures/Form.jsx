@@ -1,14 +1,23 @@
 import { useState, useRef } from "react";
 import { Validate } from "../../utility/Validate";
+import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../utility/firebase";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../utility/userSlice";
 
 const Form = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorSignIn, setErrorSignIn] = useState(null);
+  const navitage = useNavigate();
+  const dispatch = useDispatch();
+  const email = useRef();
+  const password = useRef();
+  const name1 = useRef();
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
   };
@@ -17,11 +26,18 @@ const Form = () => {
     setErrorSignIn(errorValidate);
     if (errorValidate) return;
     if (isSignInForm) {
-      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
           // Signed in
+
           const user = userCredential.user;
-          console.log(user);
+          //console.log(user);
+          dispatch(addUser({ uid: user.uid, email: email.current.value, displayName: user.displayName, }));
+          navitage("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -29,10 +45,34 @@ const Form = () => {
           setErrorSignIn(errorCode + " " + errorMessage);
         });
     } else {
-      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
+          updateProfile(auth.currentUser, {
+            displayName: name1.current.value,
+            photoURL: "https://example.com/jane-q-user/profile.jpg",
+          })
+            .then(() => {
+              // Profile updated!
+              // ...
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                })
+              );
+              navitage("/browse");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
           const user = userCredential.user;
-          console.log(user);
+          // console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -41,8 +81,7 @@ const Form = () => {
         });
     }
   };
-  const email = useRef();
-  const password = useRef();
+
   return (
     <form
       className="w-full md:w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-80"
@@ -54,6 +93,7 @@ const Form = () => {
 
       {!isSignInForm && (
         <input
+          ref={name1}
           type="text"
           placeholder="Full Name"
           className="p-4 my-4 w-full bg-gray-700 rounded-lg"
