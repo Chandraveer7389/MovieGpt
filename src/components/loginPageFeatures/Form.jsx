@@ -1,20 +1,18 @@
 import { useState, useRef } from "react";
 import { Validate } from "../../utility/Validate";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../utility/userSlice";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../utility/firebase";
-import { useDispatch } from "react-redux";
-import { addUser } from "../../utility/userSlice";
 
 const Form = () => {
+  const dispatch = useDispatch();
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorSignIn, setErrorSignIn] = useState(null);
-  const navitage = useNavigate();
-  const dispatch = useDispatch();
   const email = useRef();
   const password = useRef();
   const name1 = useRef();
@@ -31,14 +29,7 @@ const Form = () => {
         email.current.value,
         password.current.value
       )
-        .then((userCredential) => {
-          // Signed in
-
-          const user = userCredential.user;
-          //console.log(user);
-          dispatch(addUser({ uid: user.uid, email: email.current.value, displayName: user.displayName, }));
-          navitage("/browse");
-        })
+        .then((userCredential) => {})
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
@@ -56,8 +47,7 @@ const Form = () => {
             photoURL: "https://example.com/jane-q-user/profile.jpg",
           })
             .then(() => {
-              // Profile updated!
-              // ...
+      
               const { uid, email, displayName } = auth.currentUser;
               dispatch(
                 addUser({
@@ -66,7 +56,6 @@ const Form = () => {
                   displayName: displayName,
                 })
               );
-              navitage("/browse");
             })
             .catch((error) => {
               console.log(error);
