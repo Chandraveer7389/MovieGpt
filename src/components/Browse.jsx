@@ -6,7 +6,7 @@ import  SecondaryContainer from "./MainPage/SecondaryContainer"
 const Browse = () => {
   useMovie();
   return (
-    <div>
+    <div className="w-full overflow-x-hidden">
         <Header />
         <MainContainer />
         <SecondaryContainer />

@@ -4,11 +4,13 @@ import VideoTitle from "./VideoTitle"
 
 const MainContainer = () => {
   const movie = useSelector((store) => store.movie.addedMovie)
+  //console.log(movie)
   if (!movie) return;
+  const mainMovie = movie[0];
   return (
-    <div>
-      <VideoTitle movieDetails={movie[0]} />
-      <BackgroundVideo />
+    <div className="relative pt-0 bg-black w-full overflow-hidden">
+      <VideoTitle movieDetails={mainMovie} />
+      <BackgroundVideo movieId={mainMovie.id} />
     </div>
   )
 }

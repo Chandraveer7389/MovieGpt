@@ -36,7 +36,7 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="absolute w-full px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between items-center">
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-50 flex justify-between flex-col md:flex-row items-center md:items-start">
       <img
         className="w-44 mx-auto md:mx-0"
         src={NetflixLogo}
@@ -44,14 +44,14 @@ const Header = () => {
       />
 
       {User && (
-        <div className="flex p-2 items-center">
+        <div className="flex p-2 items-center gap-2">
           <img
-            className="w-12 h-12 rounded-sm"
+            className="hidden md:block w-10 h-10 rounded-sm"
             alt="Profile-icon"
             src="https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg"
           />
           <button
-            className="font-bold text-white cursor-pointer ml-2"
+            className="font-bold text-white cursor-pointer hover:underline text-sm md:text-base"
             onClick={() => {
               signOut(auth)
                 .then(() => {

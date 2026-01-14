@@ -1,18 +1,28 @@
 const VideoTitle = (props) => {
   const { title, overview } = props.movieDetails;
-  return (
-    <div className="w-screen aspect-video pt-[20%] px-24 absolute text-white bg-gradient-to-r from-black">
-      <h1 className="text-6xl font-bold">{title}</h1>
-      <p className="py-6 text-lg w-1/4">{overview}</p>
 
-      <div className="flex gap-4">
-        {/* Play Button */}
-        <button className="bg-white text-black p-4 px-12 text-xl rounded-lg hover:bg-opacity-80 transition-all font-bold flex items-center gap-2">
+  return (
+    <div className="w-screen aspect-video pt-[20%] px-6 md:px-24 absolute text-white bg-gradient-to-r from-black via-transparent to-transparent z-20">
+      {/* Title */}
+      <h1 className="text-2xl md:text-6xl font-bold w-full md:w-1/2 drop-shadow-lg mb-4">
+        {title}
+      </h1>
+      
+      {/* Overview Description */}
+      <p className="hidden md:block py-6 text-lg w-1/4 text-gray-200 drop-shadow-md">
+        {overview}
+      </p>
+
+      {/* Buttons Container */}
+      <div className="flex gap-4 mt-4 md:mt-0">
+        
+        {/* Play Button - White Background */}
+        <button className="bg-white text-black py-2 md:py-3 px-8 md:px-12 text-lg md:text-xl rounded-md hover:bg-opacity-80 transition-all font-bold flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="w-8 h-8"
+            className="w-6 h-6 md:w-8 md:h-8"
           >
             <path
               fillRule="evenodd"
@@ -23,15 +33,15 @@ const VideoTitle = (props) => {
           Play
         </button>
 
-        {/* More Info Button */}
-        <button className="bg-gray-500 text-white p-4 px-12 text-xl bg-opacity-50 rounded-lg hover:bg-opacity-80 transition-all font-bold flex items-center gap-2">
+        {/* More Info Button - Translucent Gray */}
+        <button className="bg-gray-500/70 text-white py-2 md:py-3 px-8 md:px-12 text-lg md:text-xl rounded-md hover:bg-opacity-50 transition-all font-bold flex items-center gap-2 backdrop-blur-sm">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-8 h-8"
+            className="w-6 h-6 md:w-8 md:h-8"
           >
             <path
               strokeLinecap="round"
