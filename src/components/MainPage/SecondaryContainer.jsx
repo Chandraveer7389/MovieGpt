@@ -1,26 +1,17 @@
+import { useSelector } from "react-redux";
+import MovieList from "./MovieList";
 
 const SecondaryContainer = () => {
+  const movies = useSelector((store) => store.movie);
   return (
-    <div className="bg-black w-full">
-      {/* magic here: -mt-52 pulls the section UP 
-        z-20 puts it ON TOP of the video 
-      */}
-      <div className="-mt-52 pl-12 relative z-20">
-        
-        {/* Placeholder for your future MovieList components */}
-        <h1 className="text-white text-3xl font-bold py-4">Trending Now</h1>
-        
-        <div className="flex overflow-x-scroll gap-4 pb-10 hide-scrollbar">
-           {/* Temporary placeholders to show the UI effect */}
-           <div className="w-48 h-72 bg-gray-800 shrink-0 rounded-md hover:scale-110 transition-all"></div>
-           <div className="w-48 h-72 bg-gray-800 shrink-0 rounded-md hover:scale-110 transition-all"></div>
-           <div className="w-48 h-72 bg-gray-800 shrink-0 rounded-md hover:scale-110 transition-all"></div>
-           <div className="w-48 h-72 bg-gray-800 shrink-0 rounded-md hover:scale-110 transition-all"></div>
-           <div className="w-48 h-72 bg-gray-800 shrink-0 rounded-md hover:scale-110 transition-all"></div>
-        </div>
-
+    <div className="bg-black">
+      <div className="-mt-52 pl-4 md:pl-12 relative z-20">
+        <MovieList title={"Popular"} movie={movies.addedMovie} />
+        <MovieList title={"Now Playing"} movie={movies.movieNowPlaying} />
+        <MovieList title={"Top Rated"} movie={movies.movieTopRated} />
+        <MovieList title={"Up Coming"} movie={movies.movieUpComing} />
       </div>
     </div>
   );
 };
-export default SecondaryContainer
+export default SecondaryContainer;
