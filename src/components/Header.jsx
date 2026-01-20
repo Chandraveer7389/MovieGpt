@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeUser, addUser } from "../utility/userSlice";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import { toggleSearch } from "../utility/aiSlice";
 
 const Header = () => {
+   const dispatch = useDispatch();
   const handleAiReccomendation = () => {
-    
+      dispatch(toggleSearch());
   };
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const User = useSelector((store) => {
     return store.user;
   });
