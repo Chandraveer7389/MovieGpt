@@ -8,6 +8,9 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
 const Header = () => {
+  const handleAiReccomendation = () => {
+    
+  };
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const User = useSelector((store) => {
@@ -24,7 +27,7 @@ const Header = () => {
             uid: user.uid,
             email: user.email,
             displayName: user.displayName,
-          })
+          }),
         );
         navigate("/browse");
       } else {
@@ -45,6 +48,12 @@ const Header = () => {
 
       {User && (
         <div className="flex p-2 items-center gap-2">
+          <button
+            className="bg-white text-black px-6 py-2 rounded font-bold hover:bg-opacity-80 transition duration-200 cursor-pointer"
+            onClick={handleAiReccomendation}
+          >
+            Ai Recommendation
+          </button>
           <img
             className="hidden md:block w-10 h-10 rounded-sm"
             alt="Profile-icon"
