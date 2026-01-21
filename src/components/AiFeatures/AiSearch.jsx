@@ -1,4 +1,7 @@
+import { useSelector } from "react-redux";
+import language from "../../utility/language";
 const AiSearch = () => {
+  const lang = useSelector((store) => store.configlang.lang)
   return (
     <div className="pt-[10%] flex justify-center">
       <form
@@ -8,10 +11,10 @@ const AiSearch = () => {
         <input
           type="text"
           className="p-4 m-4 col-span-9 rounded-lg"
-          placeholder="What would you like to watch today?"
+          placeholder={language[lang].searchPlaceholder}
         />
         <button className="col-span-3 m-4 py-2 px-4 bg-red-700 text-white rounded-lg hover:bg-red-800">
-          Search
+          {language[lang].search}
         </button>
       </form>
     </div>

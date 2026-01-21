@@ -7,12 +7,17 @@ import { removeUser, addUser } from "../utility/userSlice";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { toggleSearch } from "../utility/aiSlice";
+import { configLanguage } from "../utility/languageSlice";
 
 const Header = () => {
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const handleAiReccomendation = () => {
-      dispatch(toggleSearch());
+    dispatch(toggleSearch());
   };
+  const handleLanguage = (e) => {
+    dispatch(configLanguage(e.target.value));
+  };
+  const aiRecom = useSelector((store) => store.aiRecommendation.tog);
   const navigate = useNavigate();
   const User = useSelector((store) => {
     return store.user;
@@ -49,11 +54,20 @@ const Header = () => {
 
       {User && (
         <div className="flex p-2 items-center gap-2">
+          {aiRecom && (
+            <select
+              className="p-2 m-2 bg-gray-900 text-white border border-gray-500 rounded bg-opacity-80 hover:bg-opacity-100 cursor-pointer focus:outline-none"
+              onChange={handleLanguage}
+            >
+              <option value="hi">Hindi</option>
+              <option value="en">English</option>
+            </select>
+          )}
           <button
             className="bg-white text-black px-6 py-2 rounded font-bold hover:bg-opacity-80 transition duration-200 cursor-pointer"
             onClick={handleAiReccomendation}
           >
-            Ai Recommendation
+           {aiRecom?" Home " : "Ai Recommendation"} 
           </button>
           <img
             className="hidden md:block w-10 h-10 rounded-sm"
