@@ -1,15 +1,22 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import language from "../../utility/language";
 import { useRef } from "react";
 import model from "../../utility/gemini";
 import MovieApi from "../../utility/MoviApi";
+import { addAiMovies } from "../../utility/aiSlice";
 const AiSearch = () => {
+  const dispatch = useDispatch();
   const lang = useSelector((store) => store.configlang.lang);
   const searchResult = useRef(null);
   const tmdb = async (movie) => {
-    const response = await fetch('https://api.themoviedb.org/3/search/movie?query='+movie+'&include_adult=false&language=en-US&page=1',MovieApi);
+    const response = await fetch(
+      "https://api.themoviedb.org/3/search/movie?query=" +
+        movie +
+        "&include_adult=false&language=en-US&page=1",
+      MovieApi,
+    );
     const data = await response.json();
-    return data
+    return data;
   };
   const handleAiSearch = async () => {
     const gptQuery =
@@ -21,9 +28,9 @@ const AiSearch = () => {
     const textData = response.text();
     const gptMovies = textData.split(",");
     console.log(gptMovies);
-    const moviePromise = gptMovies.map((m) => tmdb(m))
-    const movie = Promise.all(moviePromise)
-    console.log(movie);
+    const moviePromise = gptMovies.map((m) => tmdb(m));
+    const movie = await Promise.all(moviePromise);
+   dispatch(addAiMovies({ titles: searchResult.current.value, movies: movie }));
   };
 
   return (
