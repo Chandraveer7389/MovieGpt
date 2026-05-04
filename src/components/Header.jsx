@@ -46,11 +46,14 @@ const Header = () => {
   }, []);
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-50 flex justify-between flex-col md:flex-row items-center md:items-start">
-      <img
-        className="w-44 mx-auto md:mx-0"
-        src={NetflixLogo}
-        alt="Netflix-Logo"
-      />
+      <div 
+  className="cursor-pointer mx-auto md:mx-0 flex items-center" 
+  onClick={() => navigate(User ? "/browse" : "/")}
+>
+  <span className="text-red-600 font-black text-3xl tracking-tighter">
+    CINEMA <span className="border-2 border-red-600 px-1 rounded-sm">AI</span>
+  </span>
+</div>
 
       {User && (
         <div className="flex p-2 items-center gap-2">
